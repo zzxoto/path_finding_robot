@@ -37,7 +37,8 @@ class Color:
     red = (250 ,0 , 0)
     green = ( 0, 255, 0 )
     yellow = (255, 255, 0)
-    brown = (92, 64, 51)
+    brown = (92, 64, 51),
+    grey = ( 72, 72, 72)
 
 
 class Stack:

@@ -28,7 +28,7 @@ class MouseAction(MousePosition):
             self.active_state = False
             return self.block
 
-    def hover_event(self):
+    def hover_event(self ):
         if self.active_state:
             self.get_mouse_pos()
             self.block.pos.x = self.x

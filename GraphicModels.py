@@ -42,7 +42,35 @@ class Destination( Block ):
         self.pos = self.image.get_rect()
         self.move( x, y )
 
-from Settings import *
+class SourcePath( pygame.Rect ):
+    '''
+    -SourcePath are pygame rect objects whose dimension are equal to that of source
+    -Each step a source takes is an instance of SourcePath
+    -They act like stepping stone for Source. And when one of the instances of Source Path,
+    collides with the destination, then the complete set of sourcePaths are traced out using 
+    parent child relationship
+    - has and eq are modified so to detect if the current SourcePath had already been visited
+    '''
+    def __init__(self, x, y):
+        super().__init__( x, y, S_D_SIZE, S_D_SIZE)
+        self.parent = None
+        self.child = None
+
+    def __hash__(self):
+        '''
+        if source path had x 10 and y 10 then the hash would be equal to that of (10-10)
+        '''
+        
+        return hash( str(self.x) + "-" + str(self.y) ) 
+
+    def __eq__(self, other):
+        '''
+        Two source path objects are equal if their x's and y's match
+        '''
+        if type(other) == SourcePath:
+            return self.x == other.x and self.y == other.y
+        return False
+
 class Button(Block):
     '''
     Buttons on the MENU_PORTION of the screen
@@ -67,7 +95,7 @@ class Button(Block):
 
         #makes the surface that encapsulates text lil bit bigger than text object
         surf = pygame.Surface( (textArea.width + 10, textArea.height + 10) )
-
+        surf.fill( Color.grey )
         #centering the textObject inside the surface
         textArea= textArea.move( 5, 5)
         surf.blit( text, textArea )
